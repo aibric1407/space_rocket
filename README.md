@@ -7,13 +7,13 @@ Author: Adnan Ibric
 1. Clone the repository
 
 ```sh
-$ git clone https://github.com/aibric1407/space_rocket_game.git
+$ git clone https://github.com/aibric1407/space_rocket.git
 ```
 
 2. Run the app
 
 ```sh
-$ cd space_rocket_game
+$ cd space_rocket
 ```
 
 Open `index.html` file in browser:
