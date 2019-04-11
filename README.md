@@ -10,13 +10,25 @@ Author: Adnan Ibric
 $ git clone https://github.com/aibric1407/space_rocket.git
 ```
 
-2. Run the app
+2. Install dependencies
 
 ```sh
 $ cd space_rocket
+$ npm install
 ```
 
-Open `index.html` file in browser:
+3. Run the app
+
+```sh
+$ npm run start
+```
+
+You will see the output:
+
+```
+Project is running at http://localhost:8080/
+
+```
 
 ![Game](game.png)
 

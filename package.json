@@ -1,0 +1,25 @@
+{
+  "name": "space_rocket_game",
+  "version": "1.0.0",
+  "description": "Author: Adnan Ibric",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack-dev-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aibric1407/space_rocket.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aibric1407/space_rocket/issues"
+  },
+  "homepage": "https://github.com/aibric1407/space_rocket#readme",
+  "dependencies": {
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0",
+    "webpack-dev-server": "^3.3.1"
+  }
+}
