@@ -18,5 +18,13 @@ window.onload = function(e) {
     },
     false
   );
-  //document.addEventListener("mousemove", mouseMoveHandler, false);
+
+  // Enables mouse movement
+  // document.addEventListener(
+  //   "mousemove",
+  //   e => {
+  //     game.mouseMoveHandler(e);
+  //   },
+  //   false
+  // );
 };

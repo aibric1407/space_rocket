@@ -1,19 +1,10 @@
+import Text from "./text.js";
 /**
  * @class Score
- * @description Score class. Contains all properties and methods for state and control of score
+ * @description Score class. Extends text class
  */
-export default class Score {
+export default class Score extends Text {
   constructor(game) {
-    this.x = 20;
-    this.y = 20;
-    this.text = "SCORE: ";
-    this.value = 0;
-  }
-
-  draw(game) {
-    // draw score
-    game.ctx.font = "16px Arial";
-    game.ctx.fillStyle = "#FFF";
-    game.ctx.fillText(this.text + this.value, this.x, this.y);
+    super(20, 20, "SCORE: ", 0);
   }
 }

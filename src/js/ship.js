@@ -1,35 +1,52 @@
+import Image from "./image.js";
 /**
  * @class Ship
- * @description Space ship class. Contains all properties and methods for state and control of space ship
+ * @description Space ship class. Extends image class.
  */
-export default class Ship {
+export default class Ship extends Image {
   constructor(game) {
-    this.img = document.getElementById("space_ship");
-    this.width = 50;
-    this.height = 50;
-    this.x = game.canvas.width / 2 - this.width / 2;
-    this.y = game.canvas.height - this.height;
-    this.speed = 5;
-    this.active = true;
+    let width = 50;
+    let height = 50;
+    let speed = 5;
+    super(
+      game.canvas.width / 2 - width / 2,
+      game.canvas.height - height,
+      speed,
+      document.getElementById("space_ship"),
+      width,
+      height
+    );
   }
 
   draw(game) {
     // draw space ship
-    if (!this.active) {
+    if (!this.isActive()) {
       return;
     }
-    if (game.rightPressed && this.x < game.canvas.width - this.width) {
-      this.x += this.speed;
+    if (
+      game.rightPressed &&
+      this.getX() < game.canvas.width - this.getWidth()
+    ) {
+      this.setX(this.getX() + this.getSpeed());
     }
-    if (game.leftPressed && this.x > 0) {
-      this.x -= this.speed;
+    if (game.leftPressed && this.getX() > 0) {
+      this.setX(this.getX() - this.getSpeed());
     }
-    if (game.upPressed && this.y > 0) {
-      this.y -= this.speed;
+    if (game.upPressed && this.getY() > 0) {
+      this.setY(this.getY() - this.getSpeed());
     }
-    if (game.downPressed && this.y < game.canvas.height - this.height) {
-      this.y += this.speed;
+    if (
+      game.downPressed &&
+      this.getY() < game.canvas.height - this.getHeight()
+    ) {
+      this.setY(this.getY() + this.getSpeed());
     }
-    game.ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+    game.ctx.drawImage(
+      this.getImage(),
+      this.getX(),
+      this.getY(),
+      this.getWidth(),
+      this.getHeight()
+    );
   }
 }

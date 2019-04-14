@@ -1,34 +1,24 @@
+import Graphic from "./graphic.js";
 /**
  * @class Bullet
- * @description Bullet class. Contains all properties and methods for state and control of bullets
- * @param {number} id
+ * @description Bullet class. Extends graphic class and Contains id property
  */
-export default class Bullet {
+export default class Bullet extends Graphic {
   constructor(id, game) {
-    this.x = game.space_ship.x + game.space_ship.width / 2;
-    this.y = game.space_ship.y;
-    this.speed = 15;
-    this.radius = 2;
+    super(
+      game.space_ship.x + game.space_ship.width / 2,
+      game.space_ship.y,
+      15,
+      2
+    );
     this.id = id;
-    this.visible = true;
-    this.active = true;
   }
 
-  draw(game) {
-    if (!this.active) {
-      return;
-    }
-    // handle exit from screen
-    if (this.y < 0) {
-      this.visible = false;
-    }
-    if (this.visible) {
-      this.y -= this.speed;
-      game.ctx.beginPath();
-      game.ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-      game.ctx.fillStyle = "#fff";
-      game.ctx.fill();
-      game.ctx.closePath();
-    }
+  /**
+   * @function getId
+   * @description Getter for id
+   */
+  getId() {
+    return this.id;
   }
 }

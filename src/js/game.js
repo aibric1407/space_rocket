@@ -4,7 +4,10 @@ import Score from "./score.js";
 import Bullet from "./bullet.js";
 import Enemy from "./enemy.js";
 import Star from "./star.js";
-
+/**
+ * @class Game
+ * @description Game class. Contains all properties and methods to controll the game
+ */
 export default class Game {
   constructor() {
     this.canvas = document.getElementById("myCanvas");
@@ -37,13 +40,12 @@ export default class Game {
     this.lives = new Live(this);
     this.score = new Score(this);
 
+    // Set refresh rate
     this.intervalHandler = setInterval(() => {
       this.update();
       this.draw();
     }, 1000 / this.fps);
   }
-
-  start(game) {}
 
   /**
    * @function draw
@@ -55,7 +57,7 @@ export default class Game {
     this.score.draw(this);
     this.lives.draw(this);
     this.bullets.forEach(element => {
-      element.draw(this);
+      element.draw(this, "#fff");
     });
 
     this.enemies.forEach(element => {
@@ -63,7 +65,7 @@ export default class Game {
     });
 
     this.stars.forEach(element => {
-      element.draw(this);
+      element.draw(this, "yellow");
     });
   }
 
@@ -72,7 +74,7 @@ export default class Game {
    * @description Update game
    */
   update() {
-    if (!this.lives.value) {
+    if (!this.lives.getValue()) {
       alert("GAME OVER");
       clearInterval(this.intervalHandler);
       document.location.reload();
@@ -82,7 +84,7 @@ export default class Game {
     // All colisions and other
     if (Math.random() < 0.05) {
       var x = Math.ceil(Math.random() * this.canvas.width);
-      this.enemies.push(new Enemy(this.ctx, x, 0));
+      this.enemies.push(new Enemy(x, 0));
     }
 
     if (Math.random() < 0.5) {
@@ -97,62 +99,66 @@ export default class Game {
 
     // Handle Inactive Stars
     this.stars.forEach(element => {
-      if (element.y > this.canvas.height) {
-        element.active = false;
+      if (element.getY() > this.canvas.height) {
+        element.setActive(false);
       }
     });
     this.stars = this.stars.filter(function(element) {
-      return element.active;
+      return element.isActive();
     });
 
     // Handle Inactive Bullets
     this.bullets.forEach(element => {
-      if (element.y < 0) {
-        element.active = false;
+      if (element.getY() < 0) {
+        element.setActive(false);
       }
     });
     this.bullets = this.bullets.filter(function(element) {
-      return element.active;
+      return element.isActive();
     });
 
     // Handle Inactive Enemies
     this.enemies.forEach(element => {
-      if (element.y > this.canvas.height) {
-        element.active = false;
+      if (element.getY() > this.canvas.height) {
+        element.setActive(false);
       }
     });
     this.enemies = this.enemies.filter(function(element) {
-      return element.active;
+      return element.isActive();
     });
 
     // Handle Bullets and Enemies colision
     this.bullets.forEach(bullet => {
       this.enemies.forEach(enemy => {
+        if (!bullet.isActive() || !enemy.isActive()) return;
         if (this.colision(bullet, enemy, false)) {
-          bullet.active = false;
-          enemy.active = false;
-          this.score.value += this.points;
+          bullet.setActive(false);
+          enemy.setActive(false);
+          this.score.setValue(this.score.getValue() + this.points);
         }
       });
     });
 
     // Handle Ship and Enemies colision
     this.enemies.forEach(enemy => {
+      if (!enemy.isActive()) return;
       if (this.colision(this.space_ship, enemy, true)) {
-        enemy.active = false;
-        this.lives.value--;
+        enemy.setActive(false);
+        this.lives.setValue(this.lives.getValue() - 1);
         this.restart();
       }
     });
   }
 
   /**
-   * @function restartGame
+   * @function restart
    * @description Restarts the game
    */
   restart() {
-    this.space_ship.x = this.canvas.width / 2 - this.space_ship.width / 2;
-    this.space_ship.y = this.canvas.height - this.space_ship.height;
+    this.space_ship.setX(
+      this.canvas.width / 2 - this.space_ship.getWidth() / 2
+    );
+    this.space_ship.setY(this.canvas.height - this.space_ship.getHeight());
     this.enemies = [];
     this.bullets = [];
     this.stars = [];
@@ -164,13 +170,19 @@ export default class Game {
    */
   colision(a, b, rect) {
     return rect
-      ? a.x < b.x + b.width &&
-          a.x + a.width > b.x &&
-          a.y < b.y + b.height &&
-          a.y + a.height > b.y
-      : a.x < b.x + b.width && a.x > b.x && a.y < b.y + b.height;
+      ? a.getX() < b.getX() + b.getWidth() &&
+          a.getX() + a.getWidth() > b.getX() &&
+          a.getY() < b.getY() + b.getHeight() &&
+          a.getY() + a.getHeight() > b.getY()
+      : a.getX() < b.getX() + b.getWidth() &&
+          a.getX() > b.getX() &&
+          a.getY() < b.getY() + b.getHeight();
   }
 
+  /**
+   * @function keyDownHandler
+   * @description Handler for key pressed
+   */
   keyDownHandler(e) {
     if (e.keyCode == this.keys_map.right) {
       this.rightPressed = true;
@@ -189,6 +201,10 @@ export default class Game {
     }
   }
 
+  /**
+   * @function keyUpHandler
+   * @description Handler for key released
+   */
   keyUpHandler(e, game) {
     if (e.keyCode == this.keys_map.right) {
       this.rightPressed = false;
@@ -208,16 +224,20 @@ export default class Game {
     }
   }
 
+  /**
+   * @function mouseMoveHandler
+   * @description Handler for movement of mouse
+   */
   mouseMoveHandler(e) {
     var relativeX = e.clientX - this.canvas.offsetLeft;
     var relativeY = e.clientY;
 
     if (relativeX > 0 && relativeX < this.canvas.width) {
-      this.space_ship.x = relativeX - this.space_ship.width / 2;
+      this.space_ship.setX(relativeX - this.space_ship.getWidth() / 2);
     }
 
     if (relativeY > 0 && relativeY < this.canvas.height) {
-      this.space_ship.y = relativeY - this.space_ship.height / 2;
+      this.space_ship.setY(relativeY - this.space_ship.getHeight() / 2);
     }
   }
 }
