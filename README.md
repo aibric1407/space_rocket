@@ -43,6 +43,6 @@ Objective is not to collide with asteroids and destroy as much asteroids as you 
 
 For each destroyed asteroid user gets 10 points.
 
-Each collision will take one live out of three.
+Each collision will take one life out of three.
 
 When user reaches 0 lives game is over.
