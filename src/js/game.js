@@ -65,7 +65,7 @@ export default class Game {
     });
 
     this.stars.forEach(element => {
-      element.draw(this, "yellow");
+      element.draw(this, "#ffd700");
     });
   }
 
