@@ -2,7 +2,7 @@ import Position from "./position.js";
 
 /**
  * @class Graphic
- * @description Graphic class. Extends position, contains speed, active and visible properties.
+ * @description Graphic class. Extends position, contains speed, active and visible properties. This class represents all element on canvas, images, shapes etc.
  */
 export default class Graphic extends Position {
   constructor(x, y, speed) {

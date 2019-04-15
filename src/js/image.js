@@ -2,7 +2,7 @@ import Shape from "./shape.js";
 
 /**
  * @class Image
- * @description Image class. Extends shape and contains img, width and height properties
+ * @description Image class. Extends shape and contains img, width and height properties. This class represent image elements on canvas
  */
 export default class Image extends Shape {
   constructor(x, y, speed, img, width, height) {
