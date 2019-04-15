@@ -1,11 +1,11 @@
-import Graphic from "./graphic.js";
+import Shape from "./shape.js";
 
 /**
  * @class Star
- * @description Star class. Extends graphic class
+ * @description Star class. Extends shape class
  * @param {number} id
  */
-export default class Star extends Graphic {
+export default class Star extends Shape {
   constructor(x, y) {
     super(x, y, 15, 2);
   }

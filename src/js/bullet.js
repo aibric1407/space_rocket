@@ -1,9 +1,9 @@
-import Graphic from "./graphic.js";
+import Shape from "./shape.js";
 /**
  * @class Bullet
- * @description Bullet class. Extends graphic class and Contains id property
+ * @description Bullet class. Extends shape class and Contains id property
  */
-export default class Bullet extends Graphic {
+export default class Bullet extends Shape {
   constructor(id, game) {
     super(
       game.space_ship.x + game.space_ship.width / 2,

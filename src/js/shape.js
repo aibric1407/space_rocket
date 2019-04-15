@@ -1,54 +1,20 @@
-import Position from "./position.js";
+import Graphic from "./graphic.js";
 
 /**
  * @class Shape
- * @description Shape class. Extends position, contains speed, active and visible properties.
+ * @description Shape class. Extends graphic and contains radius property
  */
-export default class Shape extends Position {
-  constructor(x, y, speed) {
+export default class Shape extends Graphic {
+  constructor(x, y, speed, radius) {
     super(x, y, speed);
-    this.speed = speed;
-    this.active = true;
-    this.visible = true;
+    this.radius = radius;
   }
 
   /**
-   * @function getSpeed
-   * @description Getter for speed
+   * @function getRadius
+   * @description Getter for radius
    */
-  getSpeed() {
-    return this.speed;
-  }
-
-  /**
-   * @function isVisible
-   * @description Getter for visible
-   */
-  isVisible() {
-    return this.visible;
-  }
-
-  /**
-   * @function isActive
-   * @description Getter for active
-   */
-  isActive() {
-    return this.active;
-  }
-
-  /**
-   * @function setVisible
-   * @description Setter for visible
-   */
-  setVisible(state) {
-    this.visible = state;
-  }
-
-  /**
-   * @function setActive
-   * @description Setter for active
-   */
-  setActive(state) {
-    this.active = state;
+  getRadius() {
+    return this.radius;
   }
 }
